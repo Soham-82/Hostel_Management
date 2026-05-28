@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Complaints | Hostel Management{% endblock %}
+
+{% block content %}
+<header class="topbar">
+  <div>
+    <p class="eyebrow">Service desk</p>
+    <h1>Complaints</h1>
+  </div>
+</header>
+
+<section class="split">
+  <form class="panel form" method="post" action="{{ url_for('add_complaint') }}">
+    <h2>Add complaint</h2>
+    <label>
+      Student
+      <select name="student_id" required>
+        {% for student in students %}
+        <option value="{{ student.id }}">{{ student.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Description<textarea name="description" rows="5" required></textarea></label>
+    <button class="button primary" type="submit">Submit complaint</button>
+  </form>
+
+  <section class="panel">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for complaint in complaints %}
+          <tr>
+            <td>{{ complaint.name }}</td>
+            <td>{{ complaint.description }}</td>
+            <td>{{ complaint.complaint_date }}</td>
+            <td><span class="pill {{ complaint.status }}">{{ complaint.status }}</span></td>
+            <td>
+              {% if complaint.status == "open" %}
+              <form method="post" action="{{ url_for('resolve_complaint') }}">
+                <input type="hidden" name="complaint_id" value="{{ complaint.id }}">
+                <button class="link-button" type="submit">Resolve</button>
+              </form>
+              {% endif %}
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="empty">No complaints found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+{% endblock %}
