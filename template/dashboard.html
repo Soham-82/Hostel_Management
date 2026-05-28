@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Hostel Management{% endblock %}
+
+{% block content %}
+<header class="topbar">
+  <div>
+    <p class="eyebrow">Overview</p>
+    <h1>Hostel Management System</h1>
+  </div>
+  <a class="button primary" href="{{ url_for('students') }}">Add student</a>
+</header>
+
+<section class="stats-grid">
+  <div class="stat teal"><span>Rooms</span><strong>{{ stats.rooms }}</strong></div>
+  <div class="stat blue"><span>Capacity</span><strong>{{ stats.capacity }}</strong></div>
+  <div class="stat amber"><span>Occupied</span><strong>{{ stats.occupied }}</strong></div>
+  <div class="stat green"><span>Available</span><strong>{{ stats.capacity - stats.occupied }}</strong></div>
+  <div class="stat violet"><span>Active students</span><strong>{{ stats.active_students }}</strong></div>
+  <div class="stat red"><span>Open complaints</span><strong>{{ stats.complaints }}</strong></div>
+</section>
+
+<section class="panel">
+  <div class="panel-title">
+    <h2>Recent students</h2>
+    <span>Total collected: {{ stats.payments | money }}</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Room</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in recent_students %}
+        <tr>
+          <td>{{ student.name }}</td>
+          <td>{{ student.phone }}</td>
+          <td>{{ student.room_number }}</td>
+          <td><span class="pill {{ student.status }}">{{ student.status }}</span></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="empty">No students registered yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
