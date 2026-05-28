@@ -65,3 +65,7 @@ The website creates `hostel.db` automatically the first time it runs.
 - `static/js/script.js` - Small JavaScript behavior
 - `hostel.db` - SQLite database created at runtime
 
+## Output
+
+<img width="1919" height="906" alt="image" src="https://github.com/user-attachments/assets/edf0c3ed-dee5-426f-8286-6dd844621163" />
+
