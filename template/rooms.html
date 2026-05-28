@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Rooms | Hostel Management{% endblock %}
+
+{% block content %}
+<header class="topbar">
+  <div>
+    <p class="eyebrow">Facilities</p>
+    <h1>Rooms</h1>
+  </div>
+</header>
+
+<section class="split">
+  <form class="panel form" method="post" action="{{ url_for('add_room') }}">
+    <h2>Add room</h2>
+    <label>Room number<input name="room_number" required></label>
+    <label>Capacity<input type="number" min="1" name="capacity" required></label>
+    <label>Monthly fee<input type="number" min="0" step="0.01" name="monthly_fee" required></label>
+    <button class="button primary" type="submit">Save room</button>
+  </form>
+
+  <section class="panel">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>Capacity</th>
+            <th>Occupied</th>
+            <th>Available</th>
+            <th>Fee</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for room in rooms %}
+          <tr>
+            <td>{{ room.room_number }}</td>
+            <td>{{ room.capacity }}</td>
+            <td>{{ room.occupied }}</td>
+            <td>{{ room.capacity - room.occupied }}</td>
+            <td>{{ room.monthly_fee | money }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="empty">No rooms added yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+{% endblock %}
