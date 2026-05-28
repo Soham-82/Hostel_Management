@@ -37,7 +37,7 @@ Hostel_Management/
         └── script.js
 ```
 
-## How to Run in VS Code
+## How to Run
 
 Open the project folder in VS Code, then run these commands in the terminal:
 
